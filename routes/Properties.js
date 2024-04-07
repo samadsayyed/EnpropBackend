@@ -6,10 +6,10 @@ import { isAuthenticated } from "../middlewares/auth.js"
 
 export const propertyRouter = express.Router()
 
-propertyRouter.get("/all",isAuthenticated,getAllProperties)
+propertyRouter.get("/all",getAllProperties)
 
 propertyRouter.post("/new",isAuthenticated,newProperty)
 
-propertyRouter.post("/:id/addImg",singleUpload,addImages)
-propertyRouter.post("/:id/addVid",singleUpload,addVideos)
+propertyRouter.post("/:id/addImg",isAuthenticated,singleUpload,addImages)
+propertyRouter.post("/:id/addVid",isAuthenticated,singleUpload,addVideos)
 
