@@ -28,16 +28,17 @@ export const newProperty = async (req, res) => {
 export const addImages = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("working");
     const property = await Property.findById(id);
     if (!property) return res.json({ Message: "Property not found" });
-    const file = req.file;
-    const fileUri = getDataUri(file);
-    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
-    property.images.push({
-      public_id: mycloud.public_id,
-      url: mycloud.secure_url,
-    });
-    await property.save();
+    const files = req.files;
+    const fileUri = getDataUri(files);
+    // const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+    // property.images.push({
+    //   public_id: mycloud.public_id,
+    //   url: mycloud.secure_url,
+    // });
+    // await property.save();
     res.json({
       message: "done",
     });
@@ -68,3 +69,17 @@ export const addVideos = async (req, res) => {
     res.json({ message: "Internal server error" }).status(500);
   }
 };
+
+export const propertyDetail = async(req,res)=>{
+  try {
+    const { id } = req.params;
+    const property = await Property.findById(id)
+    res.json({
+      property
+    })
+  } catch (error) {
+    res.json({
+      message:"internal server error"
+    })
+  }
+}

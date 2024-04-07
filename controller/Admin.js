@@ -20,11 +20,11 @@ export const createAdmin = async (req, res) => {
 export const loginAdmin = async (req, res) => {
   try {
     const { name, password } = req.body;
-    const checkAdmin = await Admin.findOne({ name });
+    const checkAdmin = await Admin.findOne({ name }).select("password")
     if (!checkAdmin || !(await bcrypt.compare(password, checkAdmin.password))) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
-    sendCookie(checkAdmin, res, "Welcome Back", 201);
+    sendCookie(checkAdmin, res, "Welcome Back", 200);
   } catch (error) {
     res.json({ message: "Internal server error" }).status(500);
   }

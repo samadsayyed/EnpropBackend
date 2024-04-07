@@ -29,18 +29,14 @@ app.use(
 connectDb();
 
 app.use(
-  cors({
-    origin: [process.env.FRONTEND_URL],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
+  cors()
 );
 
 app.use(propertyRouter)
 app.use(adminRouter)
 
 app.get("/",(req,res)=>{
-  res.send("<h1>You are on a wrong page visit frontend</h1>")
+  res.send(`<h1>You are on a wrong page visit <a href=${process.env.FRONTEND_URL}>frontend</a></h1>`)
 })
 app.listen(3000, () => {
   console.log("Hello");

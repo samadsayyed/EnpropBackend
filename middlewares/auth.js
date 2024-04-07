@@ -11,8 +11,9 @@ export const isAdmin = (req, res, next) => {
 
 export const isAuthenticated = async (req, res, next) => {
   const { token } = req.cookies;
+  console.log(token,"tokn");
   if (!token)
-    return res.status(404).json({
+    return res.status(403).json({
       success: false,
       message: "Login First",
     });
