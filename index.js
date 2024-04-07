@@ -31,6 +31,10 @@ connectDb();
 app.use(cors());
 app.use(propertyRouter)
 app.use(adminRouter)
+
+app.get("/",(req,res)=>{
+  res.send("<h1>You are on a wrong page visit frontend</h1>")
+})
 app.listen(3000, () => {
   console.log("Hello");
 });
